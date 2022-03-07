@@ -15,7 +15,7 @@
 ## Description
 
 Present  boilerplate build on <a href="http://nestjs.com/" target="blank">Nest</a> framework having following features:
-- CURD operation with mongoDB
+- CRUD operation with mongoDB
 - Oauth2 with google A/C
 - Verioning [URI]
 - Caching with Redis
