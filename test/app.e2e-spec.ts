@@ -12,9 +12,9 @@ import {
   updateReturnUser,
 } from '../src/modules/user-contact/stub/stub.service';
 import { JwtAuthGuard } from '../src/common/guard/jwt-auth-gaurd';
-import { UserContactDto } from '../src/modules/user-contact/dto/user-contact.dto';
+import { UserContactDto } from '../src/modules/user-contact/dto/v1/user-contact.dto';
 import { createUser } from '../src/modules/user-contact/stub/stub.controller';
-import { UpdateUserContactDto } from '../src/modules/user-contact/dto/update-user-contact.dto';
+import { UpdateUserContactDto } from '../src/modules/user-contact/dto/v1/update-user-contact.dto';
 
 describe('UsercontactController (e2e)', () => {
   let app: INestApplication;

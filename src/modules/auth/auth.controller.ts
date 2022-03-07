@@ -2,19 +2,24 @@ import { Controller, Get, UseGuards, Res, Req } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { AuthService } from './auth.service';
 
-@Controller({
-  path: 'auth',
-  //   version: VERSION_NEUTRAL,
-})
+@Controller('auth')
 export class AuthController {
   constructor(private readonly userService: AuthService) {}
-
+  /**
+   * Method that provides path for google Auth
+   */
   @Get()
   @UseGuards(AuthGuard('google'))
   googleLogin() {
     // initiates the Google OAuth2 login flow
   }
 
+  /**
+   * Callback URL that executes after google login
+   *
+   * @param response response from Service
+   * @param request Calling action to get
+   */
   @Get('google/callback')
   @UseGuards(AuthGuard('google'))
   googleLoginCallback(@Req() req, @Res() res) {
@@ -37,6 +42,11 @@ export class AuthController {
     }
   }
 
+  /**
+   * Route to check for JWT
+   *
+   * @returns string
+   */
   @Get('auth/protected')
   @UseGuards(AuthGuard('jwt'))
   protectedResource() {

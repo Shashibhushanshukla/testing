@@ -17,8 +17,8 @@ import {
   ValidationPipe,
   Version,
 } from '@nestjs/common';
-import { UpdateUserContactDto } from './dto/update-user-contact.dto';
-import { UserContactDto } from './dto/user-contact.dto';
+import { UpdateUserContactDto } from './dto/v1/update-user-contact.dto';
+import { UserContactDto } from './dto/v1/user-contact.dto';
 import { UserContactV2Dto } from './dto/v2/user-contact.dto';
 import { UsercontactService } from './usercontact.service';
 import { Logger } from 'winston';
@@ -37,6 +37,14 @@ export class UsercontactController {
     @Inject(CACHE_MANAGER) private cacheManager: Cache,
   ) {}
 
+  /**
+   *  Method that call service to create User with default version 1 having Authgaurds authentication.
+   *
+   * @param response response from Service
+   * @param request Calling action to post
+   * @param userData Schema format
+   * @returns array of Object
+   */
   @Post('create-user')
   @UseGuards(JwtAuthGuard)
   @UsePipes(ValidationPipe)
@@ -81,6 +89,14 @@ export class UsercontactController {
     }
   }
 
+  /**
+   *  Method that call service to create User in version 2 with Authgaurds authentication.
+   *
+   * @param response response from Service
+   * @param request Calling action to post
+   * @param userDataV2 Schema format (UserContactV2Dto)
+   * @returns array of Object
+   */
   @Version('2')
   @Post('create-user')
   @UseGuards(JwtAuthGuard)
@@ -125,6 +141,13 @@ export class UsercontactController {
     }
   }
 
+  /**
+   *  Method that call service to get Users with default version 1 having Authgaurds authentication.
+   *
+   * @param response response from Service
+   * @param request Calling action to get (fetching of all)
+   * @returns array of Objects
+   */
   @Get('get-users')
   @UseGuards(JwtAuthGuard)
   async getUsers(@Res() response, @Req() request) {
@@ -165,6 +188,14 @@ export class UsercontactController {
     }
   }
 
+  /**
+   *  Method that call service to get Single User with default version 1 having Authgaurds authentication.
+   *
+   * @param id Particular identification of User via id
+   * @param response response from Service
+   * @param request Calling action to get (fetching single)
+   * @returns array of Object
+   */
   @Get('user-detail/:id')
   @UseGuards(JwtAuthGuard)
   async userDetail(@Param('id') id: string, @Res() response, @Req() request) {
@@ -202,7 +233,14 @@ export class UsercontactController {
       throw new HttpException(`${error.message}`, HttpStatus.BAD_REQUEST);
     }
   }
-
+  /**
+   *  Method that call service to update Users with default version 1 having Authgaurds authentication
+   *
+   * @param id Particular identification of User via id
+   * @param response response from Service
+   * @param request Calling action to put i.e Update (Update single user)
+   * @returns array of Object
+   */
   @Put('update-user-detail/:id')
   @UseGuards(JwtAuthGuard)
   @UsePipes(ValidationPipe)
@@ -253,6 +291,14 @@ export class UsercontactController {
     }
   }
 
+  /**
+   *  Method that call service to delete Users with default version 1 having Authgaurds authentication.
+   *
+   * @param id Particular identification of User via id
+   * @param response response from Service
+   * @param request Calling action to delete (delete single user/data)
+   * @returns array of Object
+   */
   @Delete('delete-user-detail/:id')
   @UseGuards(JwtAuthGuard)
   @UsePipes(ValidationPipe)
@@ -296,6 +342,13 @@ export class UsercontactController {
     }
   }
 
+  /**
+   * Catching of User at run time.
+   *
+   * @param email Particular identification of User via email
+   * @param response getting from cache Manager
+   * @returns User data
+   */
   @Get('friends-email/:email')
   @UseGuards(JwtAuthGuard)
   async friendsEmail(@Param('email') email: string, @Res() response) {
