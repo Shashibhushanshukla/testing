@@ -1,10 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, now, Types } from 'mongoose';
-import {
-  UserContact,
-  UserContactDocument,
-} from './schemas/user-contact.schema';
+import { UserContact } from './schemas/user-contact.schema';
 import { UpdateUserContactDto } from './dto/update-user-contact.dto';
 import { UserContactDto } from './dto/user-contact.dto';
 import { UserContactV2Dto } from './dto/v2/user-contact.dto';

@@ -17,14 +17,12 @@ import {
   ValidationPipe,
   Version,
 } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
 import { UpdateUserContactDto } from './dto/update-user-contact.dto';
 import { UserContactDto } from './dto/user-contact.dto';
 import { UserContactV2Dto } from './dto/v2/user-contact.dto';
 import { UsercontactService } from './usercontact.service';
 import { Logger } from 'winston';
 import { Cache } from 'cache-manager';
-import { response } from 'express';
 import { JwtAuthGuard } from '../../common/guard/jwt-auth-gaurd';
 
 @Controller('admin')
@@ -300,11 +298,7 @@ export class UsercontactController {
 
   @Get('friends-email/:email')
   @UseGuards(JwtAuthGuard)
-  async friendsEmail(
-    @Param('email') email: string,
-    @Res() response,
-    @Req() request,
-  ) {
+  async friendsEmail(@Param('email') email: string, @Res() response) {
     const emailList = await this.cacheManager.get(`FRIENDS-${email}`);
     return response
       .status(HttpStatus.OK)
