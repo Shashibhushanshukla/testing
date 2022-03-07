@@ -17,6 +17,15 @@ export class AuthService {
   private readonly JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
 
   constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {}
+
+  /**
+   * Method to validate user.
+   *
+   * @param thirdPartyId string
+   * @param provider google
+   * @param userDetail data provided by google
+   * @returns
+   */
   async validateOAuthLogin(
     thirdPartyId: string,
     provider: Provider,
@@ -48,6 +57,12 @@ export class AuthService {
     }
   }
 
+  /**
+   * Method that create or update user(log in user) data.
+   *
+   * @param Payload Data provided by google of that particular user
+   * @returns array of object
+   */
   async createGoogleUser(Payload: any): Promise<User> {
     const payloadObject = Payload;
     // Check if exist then update else insert

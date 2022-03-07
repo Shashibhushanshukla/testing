@@ -5,8 +5,8 @@ import {
   UserContact,
   UserContactDocument,
 } from './schemas/user-contact.schema';
-import { UpdateUserContactDto } from './dto/update-user-contact.dto';
-import { UserContactDto } from './dto/user-contact.dto';
+import { UpdateUserContactDto } from './dto/v1/update-user-contact.dto';
+import { UserContactDto } from './dto/v1/user-contact.dto';
 import { UserContactV2Dto } from './dto/v2/user-contact.dto';
 
 @Injectable()
@@ -16,6 +16,12 @@ export class UsercontactService {
     public userContact: Model<UserContact>,
   ) {}
 
+  /**
+   * Method that creates data according to version 1 Dto in Database
+   *
+   * @param userData schema format to create
+   * @returns array of object(created User)
+   */
   async create(userData: UserContactDto): Promise<UserContact> {
     try {
       const userDataNew = await this.userContact.create({
@@ -36,6 +42,12 @@ export class UsercontactService {
     }
   }
 
+  /**
+   * Method that creates data according to version 2 Dto in Database
+   *
+   * @param userData schema format to create
+   * @returns array of object(created User)
+   */
   async createv2(userData: UserContactV2Dto): Promise<UserContact> {
     try {
       return await new this.userContact({
@@ -51,11 +63,22 @@ export class UsercontactService {
     }
   }
 
+  /**
+   * Method that get all users data from Database
+   *
+   * @returns array of objects
+   */
   async getUsers(): Promise<UserContact[]> {
     const data = await this.userContact.find({ deletedAt: undefined });
     return data;
   }
 
+  /**
+   * Method that get single user data from Database
+   *
+   * @param id Particular identification of User via id
+   * @returns array of object
+   */
   async findOne(id: string): Promise<UserContact[]> {
     try {
       const data = await this.userContact.find({
@@ -71,6 +94,12 @@ export class UsercontactService {
     }
   }
 
+  /**
+   * Method that update single user data in Database
+   *
+   * @param id Particular identification of User via id
+   * @returns array of object (updated user)
+   */
   async update(
     id: string,
     updateUserContactDto: UpdateUserContactDto,
@@ -89,6 +118,12 @@ export class UsercontactService {
     }
   }
 
+  /**
+   * Method that delete single user data from Database
+   *
+   * @param id Particular identification of User via id
+   * @returns array of object
+   */
   async delete(id: string): Promise<UserContact[]> {
     try {
       const user = await this.userContact.find({
