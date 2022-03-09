@@ -1,0 +1,22 @@
+#GOOGLE DETAIL
+GOOGLE_STRATEGY=google
+GOOGLE_CLIENT_ID=518982239661-5293b4ueqjt6lfsgms6ao0m6v14cp8o8.apps.googleusercontent.com
+GOOGLE_SECRET_ID=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
+GOOGLE_CALLBACK_URL=http://localhost:3000/api/v1/auth/google/callback
+
+#JWT
+JWT_STRATEGY=jwt
+JWT_SECRET_KEY=SUCCESSIVE@!@#
+
+
+#DB
+DB_PATH = mongodb://localhost:27017/usermanagement
+
+#WINSTONE
+WIN_DIR_STORE=log/info/
+WIN_FILE_NAME=info.log
+WIN_LEVEL=info
+
+#REDIS
+REDIS_HOST=127.0.0.1
+REDIS_PORT=6379
