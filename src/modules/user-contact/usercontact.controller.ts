@@ -204,17 +204,14 @@ export class UsercontactController {
       const end = Date.now();
       const userDetail = await this.UserContact.findOne(id);
       if (userDetail) {
-        this.logger.info(
-          `User detail with email ${userDetail[0].email} found`,
-          {
-            Controller: UsercontactController.name,
-            Path: request.path,
-            ts: (end - this.start) / 1000 + ' seconds to execute',
-            IP: request.ip,
-            method: request.method,
-            status: response.statusCode,
-          },
-        );
+        this.logger.info(`User detail with email ${userDetail.email} found`, {
+          Controller: UsercontactController.name,
+          Path: request.path,
+          ts: (end - this.start) / 1000 + ' seconds to execute',
+          IP: request.ip,
+          method: request.method,
+          status: response.statusCode,
+        });
         return response
           .status(HttpStatus.OK)
           .json({ message: 'User found', data: userDetail });
@@ -258,17 +255,14 @@ export class UsercontactController {
       );
       const end = Date.now();
       if (userDetail) {
-        this.logger.info(
-          `User detail with email ${userDetail[0].email} updated`,
-          {
-            Controller: UsercontactController.name,
-            Path: request.path,
-            ts: (end - this.start) / 1000 + ' seconds to execute',
-            IP: request.ip,
-            method: request.method,
-            status: response.statusCode,
-          },
-        );
+        this.logger.info(`User detail with email ${userDetail.email} updated`, {
+          Controller: UsercontactController.name,
+          Path: request.path,
+          ts: (end - this.start) / 1000 + ' seconds to execute',
+          IP: request.ip,
+          method: request.method,
+          status: response.statusCode,
+        });
         return response
           .status(HttpStatus.OK)
           .json({ message: 'User updated', data: userDetail });

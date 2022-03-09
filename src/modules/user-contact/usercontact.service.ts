@@ -77,12 +77,10 @@ export class UsercontactService {
    * @param id Particular identification of User via id
    * @returns array of object
    */
-  async findOne(id: string): Promise<UserContact[]> {
+  async findOne(id: string): Promise<UserContact> {
     try {
-      const data = await this.userContact.find({
-        deletedAt: undefined,
-        id: id,
-      });
+      const finalQuery = { deletedAt: undefined, id };
+      const data = await this.userContact.findOne(finalQuery);
       return data;
     } catch (err) {
       throw new HttpException(
@@ -101,13 +99,12 @@ export class UsercontactService {
   async update(
     id: string,
     updateUserContactDto: UpdateUserContactDto,
-  ): Promise<UserContact[]> {
+  ): Promise<UserContact> {
     try {
-      const user = await this.userContact.find({
-        id,
-        updateUserContactDto,
-      });
-      return user;
+      const filter = { id: id };
+      const update = { ...updateUserContactDto };
+      await this.userContact.findOneAndUpdate(filter, update);
+      return await this.userContact.findById(id);
     } catch (err) {
       throw new HttpException(
         `Callback getUser ${err.message}`,
