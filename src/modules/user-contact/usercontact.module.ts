@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
+
 import { UserContact, UserContactSchema } from './schemas/user-contact.schema';
 import { UsercontactController } from './usercontact.controller';
 import { UsercontactService } from './usercontact.service';

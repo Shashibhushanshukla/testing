@@ -2,6 +2,7 @@ import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { sign } from 'jsonwebtoken';
 import { Model, now } from 'mongoose';
+
 import { User, UserDocument } from '../../common/schemas/user.schema';
 
 export enum Provider {

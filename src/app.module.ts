@@ -1,15 +1,16 @@
 import { CacheModule, Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { WinstonModule } from 'nest-winston';
+import { GraphQLModule } from '@nestjs/graphql';
+import { join } from 'path';
 import * as winston from 'winston';
+import * as redisStore from 'cache-manager-redis-store';
+
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './modules/auth/auth.module';
 import { UsercontactModule } from './modules/user-contact/usercontact.module';
-import * as redisStore from 'cache-manager-redis-store';
 import { DatabaseModule } from './database/database.module';
-import { GraphQLModule } from '@nestjs/graphql';
-import { join } from 'path';
 import { ProjectModule } from './modules/project/project.module';
 
 @Module({

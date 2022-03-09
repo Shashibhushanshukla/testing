@@ -17,12 +17,13 @@ import {
   ValidationPipe,
   Version,
 } from '@nestjs/common';
+import { Logger } from 'winston';
+import { Cache } from 'cache-manager';
+
 import { UpdateUserContactDto } from './dto/v1/update-user-contact.dto';
 import { UserContactDto } from './dto/v1/user-contact.dto';
 import { UserContactV2Dto } from './dto/v2/user-contact.dto';
 import { UsercontactService } from './usercontact.service';
-import { Logger } from 'winston';
-import { Cache } from 'cache-manager';
 import { JwtAuthGuard } from '../../common/guard/jwt-auth-gaurd';
 
 @Controller('admin')

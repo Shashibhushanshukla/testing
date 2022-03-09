@@ -1,4 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
+
 import { UsercontactController } from '../usercontact.controller';
 import { UsercontactService } from '../usercontact.service';
 import {
@@ -21,15 +22,15 @@ const data1 = {
   json: jest.fn().mockResolvedValue([updateReturnUser()]),
 };
 const res = {
-  status: jest.fn((x) => data),
+  status: jest.fn(() => data),
   json: jest.fn().mockResolvedValue([returnUser()]),
 };
 const updateResponse = {
-  status: jest.fn((x) => data1),
+  status: jest.fn(() => data1),
   json: jest.fn().mockResolvedValue([updateReturnUser()]),
 };
 const createResponse = {
-  status: jest.fn((x) => data2),
+  status: jest.fn(() => data2),
   json: jest.fn().mockResolvedValue([createUser()]),
 };
 

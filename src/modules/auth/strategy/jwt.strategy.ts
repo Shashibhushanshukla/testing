@@ -1,7 +1,7 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
+import { VerifyCallback } from 'passport-google-oauth20';
 import { ExtractJwt, Strategy } from 'passport-jwt';
-//import { UserService } from '../user/user/user.service';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(
@@ -16,20 +16,20 @@ export class JwtStrategy extends PassportStrategy(
   }
 
   /**
-   * Metrhod to validate jwt
+   * Method to validate jwt
    *
    * @param payload
    * @param done function
    */
-  async validate(payload, done: Function) {
+  async validate(payload, done: VerifyCallback) {
     try {
-      // You could add a function to the authService to verify the claims of the token:
-      // i.e. does the user still have the roles that are claimed by the token
-      //const validClaims = await this.authService.verifyTokenClaims(payload);
-
-      //if (!validClaims)
-      //    return done(new UnauthorizedException('invalid token claims'), false);
-
+      /*
+        You could add a function to the authService to verify the claims of the token:
+        i.e. does the user still have the roles that are claimed by the token
+        const validClaims = await this.authService.verifyTokenClaims(payload);
+        if (!validClaims)
+            return done(new UnauthorizedException('invalid token claims'), false);
+      */
       done(null, payload);
     } catch (err) {
       throw new UnauthorizedException('unauthorized', err.message);
