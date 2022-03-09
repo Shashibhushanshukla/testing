@@ -18,7 +18,7 @@ export class UsercontactService {
    * Method that creates data according to version 1 Dto in Database
    *
    * @param userData schema format to create
-   * @returns array of object(created User)
+   * @returns object(created User)
    */
   async create(userData: UserContactDto): Promise<UserContact> {
     try {
@@ -44,7 +44,7 @@ export class UsercontactService {
    * Method that creates data according to version 2 Dto in Database
    *
    * @param userData schema format to create
-   * @returns array of object(created User)
+   * @returns object(created User)
    */
   async createv2(userData: UserContactV2Dto): Promise<UserContact> {
     try {
@@ -75,7 +75,7 @@ export class UsercontactService {
    * Method that get single user data from Database
    *
    * @param id Particular identification of User via id
-   * @returns array of object
+   * @returns object of UserContact type
    */
   async findOne(id: string): Promise<UserContact> {
     try {
@@ -94,7 +94,7 @@ export class UsercontactService {
    * Method that update single user data in Database
    *
    * @param id Particular identification of User via id
-   * @returns array of object (updated user)
+   * @returns object (updated user)
    */
   async update(
     id: string,
@@ -117,14 +117,11 @@ export class UsercontactService {
    * Method that delete single user data from Database
    *
    * @param id Particular identification of User via id
-   * @returns array of object
+   * @returns object
    */
-  async delete(id: string): Promise<UserContact[]> {
+  async delete(id: string): Promise<UserContact> {
     try {
-      const user = await this.userContact.find({
-        id: id,
-      });
-      this.userContact.deleteOne(user);
+      const user = await this.userContact.findByIdAndDelete(id);
       return user;
     } catch (err) {
       throw new HttpException(

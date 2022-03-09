@@ -44,7 +44,7 @@ export class UsercontactController {
    * @param response response from Service
    * @param request Calling action to post
    * @param userData Schema format
-   * @returns array of Object
+   * @returns Object
    */
   @Post('create-user')
   @UseGuards(JwtAuthGuard)
@@ -96,7 +96,7 @@ export class UsercontactController {
    * @param response response from Service
    * @param request Calling action to post
    * @param userDataV2 Schema format (UserContactV2Dto)
-   * @returns array of Object
+   * @returns Object
    */
   @Version('2')
   @Post('create-user')
@@ -195,7 +195,7 @@ export class UsercontactController {
    * @param id Particular identification of User via id
    * @param response response from Service
    * @param request Calling action to get (fetching single)
-   * @returns array of Object
+   * @returns Object
    */
   @Get('user-detail/:id')
   @UseGuards(JwtAuthGuard)
@@ -237,7 +237,7 @@ export class UsercontactController {
    * @param id Particular identification of User via id
    * @param response response from Service
    * @param request Calling action to put i.e Update (Update single user)
-   * @returns array of Object
+   * @returns Object
    */
   @Put('update-user-detail/:id')
   @UseGuards(JwtAuthGuard)
@@ -306,17 +306,14 @@ export class UsercontactController {
       const userDetail = await this.UserContact.delete(id);
       const end = Date.now();
       if (userDetail) {
-        this.logger.info(
-          `User detail with email ${userDetail[0].email} found`,
-          {
-            Controller: UsercontactController.name,
-            Path: request.path,
-            ts: (end - this.start) / 1000 + ' seconds to execute',
-            IP: request.ip,
-            method: request.method,
-            status: response.statusCode,
-          },
-        );
+        this.logger.info(`User detail with email ${userDetail.email} found`, {
+          Controller: UsercontactController.name,
+          Path: request.path,
+          ts: (end - this.start) / 1000 + ' seconds to execute',
+          IP: request.ip,
+          method: request.method,
+          status: response.statusCode,
+        });
         return response
           .status(HttpStatus.OK)
           .json({ message: 'User deleted successfully', data: userDetail });
