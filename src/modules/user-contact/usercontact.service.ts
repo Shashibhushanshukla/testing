@@ -70,7 +70,7 @@ export class UsercontactService {
    *
    * @returns array of objects
    */
-  async getUsers(page: number, limit: number): Promise<UserContact[]> {
+  async getUsers(page?: number, limit?: number): Promise<UserContact[]> {
     if (!page) {
       page = 1;
     }

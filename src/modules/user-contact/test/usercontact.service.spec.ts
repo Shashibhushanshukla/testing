@@ -11,7 +11,11 @@ describe('UsercontactService', () => {
   const userModel = {
     create: jest.fn().mockResolvedValue(newUser),
     getUsers: jest.fn().mockResolvedValue([returnUser]),
-    find: jest.fn().mockResolvedValue([returnUser()]),
+    find: jest.fn().mockImplementation(() => ({
+      limit: jest.fn().mockImplementation(() => ({
+        skip: jest.fn().mockImplementation(() => [returnUser()]),
+      })),
+    })),
     exec: jest.fn(),
     findById: jest.fn().mockResolvedValue([returnUser()]),
     findOne: jest.fn().mockResolvedValue([returnUser()]),
@@ -58,15 +62,4 @@ describe('UsercontactService', () => {
     const given = await service.findOne(returnUser()._id);
     expect(given).toEqual([returnUser()]);
   });
-  /*
-  it('update method test', async () => {
-    const given = await service.update(returnUser()._id, updateReturnUser());
-    expect(given).toEqual([updateReturnUser()]);
-  });
-
-  it('delete method test', async () => {
-    const given = await service.delete(returnUser()._id);
-    expect(given).toEqual([returnUser()]);
-  });
-  */
 });

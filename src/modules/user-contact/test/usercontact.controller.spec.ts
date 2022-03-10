@@ -49,6 +49,7 @@ describe('UsercontactController', () => {
             update: jest.fn().mockResolvedValue([updateReturnUser()]),
             delete: jest.fn().mockResolvedValue([returnUser()]),
             create: jest.fn().mockResolvedValue([createUser()]),
+            count: jest.fn().mockImplementation(() => [returnUser()].length),
           },
         },
         {
@@ -76,7 +77,9 @@ describe('UsercontactController', () => {
   });
 
   it('getAll method', async () => {
-    const recieved = await controller.getUsers(res, req);
+    const page = 1;
+    const limit = 10;
+    const recieved = await controller.getUsers(page, limit, res, req);
     expect(recieved).toEqual([returnUser()]);
   });
 

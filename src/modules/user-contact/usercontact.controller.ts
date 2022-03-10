@@ -148,6 +148,8 @@ export class UsercontactController {
    *
    * @param response response from Service
    * @param request Calling action to get (fetching of all)
+   * @param page page number to fetch data from
+   * @param limit size of data to be fetched
    * @returns array of Objects
    */
   @Get('get-users')
