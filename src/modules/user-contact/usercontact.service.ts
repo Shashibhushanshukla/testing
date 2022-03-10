@@ -61,13 +61,29 @@ export class UsercontactService {
     }
   }
 
+  async count(): Promise<number> {
+    return await this.userContact.count();
+  }
+
   /**
    * Method that get all users data from Database
    *
    * @returns array of objects
    */
-  async getUsers(): Promise<UserContact[]> {
-    const data = await this.userContact.find({ deletedAt: undefined });
+  async getUsers(page: number, limit: number): Promise<UserContact[]> {
+    if (!page) {
+      page = 1;
+    }
+    if (!limit) {
+      limit = 10;
+    }
+
+    const skip = (page - 1) * limit;
+
+    const data = await this.userContact
+      .find({ deletedAt: undefined })
+      .limit(limit)
+      .skip(skip);
     return data;
   }
 

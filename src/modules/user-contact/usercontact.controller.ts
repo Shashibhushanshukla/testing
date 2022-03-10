@@ -10,6 +10,7 @@ import {
   Param,
   Post,
   Put,
+  Query,
   Req,
   Res,
   UseGuards,
@@ -151,9 +152,15 @@ export class UsercontactController {
    */
   @Get('get-users')
   @UseGuards(JwtAuthGuard)
-  async getUsers(@Res() response, @Req() request) {
+  async getUsers(
+    @Query('page') page: number,
+    @Query('limit') limit: number,
+    @Res() response,
+    @Req() request,
+  ) {
     try {
-      const usersData = await this.UserContact.getUsers();
+      const count = await this.UserContact.count();
+      const usersData = await this.UserContact.getUsers(page, limit);
       if (usersData.length > 0) {
         const end = Date.now();
         this.logger.info(`User detail found`, {
@@ -164,9 +171,15 @@ export class UsercontactController {
           method: request.method,
           status: response.statusCode,
         });
-        return response
-          .status(HttpStatus.OK)
-          .json({ message: 'User found', data: usersData });
+        return response.status(HttpStatus.OK).json({
+          total: count,
+          message: 'User found',
+          meta: {
+            page: page,
+            limit: limit,
+          },
+          data: usersData,
+        });
       } else {
         return response
           .status(HttpStatus.OK)
